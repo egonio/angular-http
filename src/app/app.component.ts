@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  appName = this.serverService.getAppName();
   servers = [
     {
       name: 'Testserver',
@@ -35,11 +36,21 @@ export class AppComponent {
         (response)=> console.log(response),
         (error)=> console.log(error)
       )
-  };
+  }
+
+  onGet(){
+    this.serverService.getServers()
+    .subscribe(
+      (servers: any[])=> this.servers = servers,
+      (error)=> console.log(error)
+    )
+  }
 
   private generateId() {
     return Math.round(Math.random() * 10000);
   }
+
+
 
 
 }
